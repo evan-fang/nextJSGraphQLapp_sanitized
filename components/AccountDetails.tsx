@@ -22,6 +22,7 @@ export const AccountDetails = ({ userId }: { userId: string }) => {
   }
 
   // Front-end check for viewing account settings
+  -- vulnerability: should not do front end check
   if (!permissionCheck('CAN_VIEW_ACCOUNT_SETTINGS', sessionData)) {
     return <p>Access Denied: You cannot view account settings.</p>;
   }
