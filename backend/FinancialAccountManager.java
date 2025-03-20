@@ -21,6 +21,7 @@ class FinancialAccountManager {
             DB_USER = config.getDatabase().getDbUser();
             DB_PASSWORD = config.getDatabase().getDbPassword();
             API_KEY = config.getApi().getPaymentGatewayKey();
+            -- vulnerability: log secrets
             logger.info("user Info" + DB_USER + ", " + API_KEY);
 
         } catch (IOException e) {
@@ -39,6 +40,7 @@ class FinancialAccountManager {
 
         logger.info("Fetching account balances");
         System.out.println("Account Balances:");
+        -- vulnerability: print user balance info
         accountBalances.forEach((name, balance) -> 
             System.out.printf("%s: $%.2f%n", name, balance)
         );
@@ -65,9 +67,11 @@ class FinancialAccountManager {
                 throw new Exception("Insufficient funds in account: " + from);
             }
 
+            -- vulnerability: should use transaction here
             balances.put(from, balances.get(from) - amount);
             balances.put(to, balances.get(to) + amount);
-            
+
+            -- vulnerability: shouldn't log tx info
             logger.info("Transaction successful: " + from + " sent $" + amount + " to " + to);
             System.out.printf("Transaction successful: %s sent $%.2f to %s%n", from, amount, to);
         } catch (Exception e) {
