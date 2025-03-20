@@ -7,6 +7,7 @@ export class UserAPI {
 
     async getUserDetails(userId: string) {
         const response = await fetch(`https://circle-api.com/user/${userId}/details`, {
+            -- vulnerability: no authenticatin/authorization in every call apis
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
